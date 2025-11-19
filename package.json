@@ -17,7 +17,8 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-quill": "^2.0.0",
-    "react-router-dom": "^7.9.6"
+    "react-router-dom": "^7.9.6",
+    "usehooks-ts": "^3.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",

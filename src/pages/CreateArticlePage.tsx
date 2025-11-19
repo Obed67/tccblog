@@ -220,14 +220,14 @@ export default function CreateArticlePage({
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
       {/* Header */}
-      <div className="bg-gradient-to-br from-gray-50 to-white border-b border-gray-100 sticky top-0 z-10">
+      <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 border-b border-gray-100 dark:border-gray-700 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <button
               onClick={onBack}
-              className="inline-flex items-center space-x-2 text-secondary hover:text-accent transition-colors px-4 py-2 rounded-lg hover:bg-gray-50"
+              className="inline-flex items-center space-x-2 text-secondary dark:text-gray-400 hover:text-accent transition-colors px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
             >
               <ArrowLeft className="w-5 h-5" />
               <span className="font-medium">Retour</span>
@@ -237,7 +237,7 @@ export default function CreateArticlePage({
               <button
                 type="button"
                 onClick={() => setPreview(!preview)}
-                className="inline-flex items-center space-x-2 px-4 py-2 rounded-lg border border-gray-300 text-secondary hover:bg-gray-50 transition-all"
+                className="inline-flex items-center space-x-2 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-secondary dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
               >
                 <Eye className="w-4 h-4" />
                 <span>{preview ? "Éditer" : "Prévisualiser"}</span>
@@ -260,17 +260,17 @@ export default function CreateArticlePage({
         {!preview ? (
           <form onSubmit={handleSubmit} className="space-y-8">
             <div>
-              <h1 className="text-4xl font-bold text-primary mb-2">
+              <h1 className="text-4xl font-bold text-primary dark:text-white mb-2">
                 Créer un nouvel article
               </h1>
-              <p className="text-secondary">
+              <p className="text-secondary dark:text-gray-400">
                 Documentez votre événement TCC et partagez-le avec la communauté
               </p>
             </div>
 
             {/* Titre */}
             <div>
-              <label className="block text-sm font-semibold text-primary mb-2">
+              <label className="block text-sm font-semibold text-primary dark:text-white mb-2">
                 Titre de l'article *
               </label>
               <input
@@ -280,13 +280,13 @@ export default function CreateArticlePage({
                 onChange={handleChange}
                 required
                 placeholder="Ex: Workshop Python : Retour sur notre Session du 15 Novembre"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent text-lg"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent text-lg"
               />
             </div>
 
             {/* Slug */}
             <div>
-              <label className="block text-sm font-semibold text-primary mb-2">
+              <label className="block text-sm font-semibold text-primary dark:text-white mb-2">
                 Slug (URL) *
               </label>
               <input
@@ -296,16 +296,16 @@ export default function CreateArticlePage({
                 onChange={handleChange}
                 required
                 placeholder="workshop-python-session-nov-2024"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent font-mono text-sm"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent font-mono text-sm"
               />
-              <p className="text-xs text-secondary mt-1">
+              <p className="text-xs text-secondary dark:text-gray-400 mt-1">
                 Généré automatiquement depuis le titre, personnalisable
               </p>
             </div>
 
             {/* Résumé */}
             <div>
-              <label className="block text-sm font-semibold text-primary mb-2">
+              <label className="block text-sm font-semibold text-primary dark:text-white mb-2">
                 Résumé *
               </label>
               <textarea
@@ -315,13 +315,13 @@ export default function CreateArticlePage({
                 required
                 rows={3}
                 placeholder="Un résumé court et accrocheur de l'article (2-3 phrases)"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent resize-none"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent resize-none"
               />
             </div>
 
             {/* Contenu */}
             <div>
-              <label className="block text-sm font-semibold text-primary mb-2">
+              <label className="block text-sm font-semibold text-primary dark:text-white mb-2">
                 Contenu de l'article *
               </label>
 
@@ -361,7 +361,7 @@ export default function CreateArticlePage({
                 </button>
               </div>
 
-              <div className="bg-white border border-gray-300 rounded-lg overflow-hidden">
+              <div className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden dark:text-white">
                 <ReactQuill
                   ref={quillRef}
                   theme="snow"
@@ -374,7 +374,7 @@ export default function CreateArticlePage({
                   style={{ minHeight: "400px" }}
                 />
               </div>
-              <p className="text-xs text-secondary mt-2">
+              <p className="text-xs text-secondary dark:text-gray-400 mt-2">
                 Utilisez la barre d'outils pour formater votre texte. Les
                 boutons ci-dessus permettent d'insérer des médias riches.
               </p>
@@ -382,7 +382,7 @@ export default function CreateArticlePage({
 
             {/* Image */}
             <div>
-              <label className="block text-sm font-semibold text-primary mb-2">
+              <label className="block text-sm font-semibold text-primary dark:text-white mb-2">
                 URL de l'image
               </label>
               <div className="flex space-x-2">
@@ -392,13 +392,13 @@ export default function CreateArticlePage({
                   value={formData.image_url}
                   onChange={handleChange}
                   placeholder="https://exemple.com/image.jpg"
-                  className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
+                  className="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
                 />
                 <button
                   type="button"
-                  className="px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                 >
-                  <ImageIcon className="w-5 h-5 text-secondary" />
+                  <ImageIcon className="w-5 h-5 text-secondary dark:text-gray-400" />
                 </button>
               </div>
               {formData.image_url && (
@@ -419,7 +419,7 @@ export default function CreateArticlePage({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Catégorie */}
               <div>
-                <label className="block text-sm font-semibold text-primary mb-2">
+                <label className="block text-sm font-semibold text-primary dark:text-white mb-2">
                   Catégorie *
                 </label>
                 <select
@@ -427,7 +427,7 @@ export default function CreateArticlePage({
                   value={formData.category}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
                 >
                   <option value="">Sélectionner une catégorie</option>
                   {categories.map((cat) => (
@@ -440,7 +440,7 @@ export default function CreateArticlePage({
 
               {/* Auteur */}
               <div>
-                <label className="block text-sm font-semibold text-primary mb-2">
+                <label className="block text-sm font-semibold text-primary dark:text-white mb-2">
                   Nom de l'auteur *
                 </label>
                 <input
@@ -450,14 +450,14 @@ export default function CreateArticlePage({
                   onChange={handleChange}
                   required
                   placeholder="Ex: TCC ESGIS"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
                 />
               </div>
             </div>
 
             {/* Chapitre */}
             <div>
-              <label className="block text-sm font-semibold text-primary mb-2">
+              <label className="block text-sm font-semibold text-primary dark:text-white mb-2">
                 Chapitre / Localisation *
               </label>
               <input
@@ -467,14 +467,14 @@ export default function CreateArticlePage({
                 onChange={handleChange}
                 required
                 placeholder="Ex: Lomé, Togo"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
               />
             </div>
           </form>
         ) : (
           /* Preview */
           <div className="space-y-8">
-            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-yellow-800">
+            <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg p-4 text-yellow-800 dark:text-yellow-300">
               <strong>Mode prévisualisation</strong> - Ceci est un aperçu de
               votre article
             </div>
@@ -490,7 +490,7 @@ export default function CreateArticlePage({
             )}
 
             <div>
-              <div className="flex items-center space-x-3 text-sm text-secondary mb-4">
+              <div className="flex items-center space-x-3 text-sm text-secondary dark:text-gray-400 mb-4">
                 <span className="px-3 py-1 bg-accent/10 text-accent rounded-full font-medium">
                   {formData.category || "Catégorie"}
                 </span>
@@ -500,22 +500,22 @@ export default function CreateArticlePage({
                 <span>{formData.author_chapter || "Localisation"}</span>
               </div>
 
-              <h1 className="text-4xl md:text-5xl font-bold text-primary mb-6 leading-tight">
+              <h1 className="text-4xl md:text-5xl font-bold text-primary dark:text-white mb-6 leading-tight">
                 {formData.title || "Titre de l'article"}
               </h1>
 
-              <p className="text-xl text-secondary leading-relaxed mb-8 pb-8 border-b border-gray-200">
+              <p className="text-xl text-secondary dark:text-gray-300 leading-relaxed mb-8 pb-8 border-b border-gray-200 dark:border-gray-700">
                 {formData.summary || "Résumé de l'article..."}
               </p>
 
               <article className="prose prose-lg max-w-none">
                 {formData.content ? (
                   <div
-                    className="text-secondary leading-relaxed"
+                    className="text-secondary dark:text-gray-300 leading-relaxed"
                     dangerouslySetInnerHTML={{ __html: formData.content }}
                   />
                 ) : (
-                  <p className="text-secondary italic">
+                  <p className="text-secondary dark:text-white italic">
                     Contenu de l'article...
                   </p>
                 )}

@@ -19,7 +19,7 @@ export default function ArticleCard({ article, onClick }: ArticleCardProps) {
   return (
     <article
       onClick={onClick}
-      className="bg-white rounded-2xl border border-gray-200 overflow-hidden hover:border-accent hover:shadow-lg transition-all duration-300 cursor-pointer group"
+      className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden hover:border-accent dark:hover:border-accent hover:shadow-lg transition-all duration-300 cursor-pointer group"
     >
       <div className="relative h-56 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-50">
         {article.image_url ? (
@@ -36,7 +36,7 @@ export default function ArticleCard({ article, onClick }: ArticleCardProps) {
       </div>
 
       <div className="p-6">
-        <div className="flex items-center justify-between text-sm text-secondary mb-4">
+        <div className="flex items-center justify-between text-sm text-secondary dark:text-gray-400 mb-4">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-1.5">
               <Calendar className="w-4 h-4 text-accent" />
@@ -49,22 +49,22 @@ export default function ArticleCard({ article, onClick }: ArticleCardProps) {
           </div>
         </div>
 
-        <h2 className="text-xl font-bold text-primary mb-3 group-hover:text-accent transition-colors line-clamp-2 leading-snug">
+        <h2 className="text-xl font-bold text-primary dark:text-white mb-3 group-hover:text-accent dark:group-hover:text-blue-400 transition-colors line-clamp-2 leading-snug">
           {article.title}
         </h2>
 
-        <p className="text-secondary line-clamp-3 leading-relaxed mb-4">
+        <p className="text-secondary dark:text-gray-300 line-clamp-3 leading-relaxed mb-4">
           {article.summary}
         </p>
 
-        <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+        <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
           <div className="flex items-center space-x-2 text-sm">
-            <User className="w-4 h-4 text-secondary" />
+            <User className="w-4 h-4 text-secondary dark:text-gray-400" />
             <div className="flex flex-col">
-              <span className="font-medium text-primary">
+              <span className="font-medium text-primary dark:text-white">
                 {article.author.name}
               </span>
-              <span className="text-xs text-secondary">
+              <span className="text-xs text-secondary dark:text-gray-400">
                 {article.author.chapter}
               </span>
             </div>

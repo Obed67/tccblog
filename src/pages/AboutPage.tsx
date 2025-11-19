@@ -34,13 +34,13 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="bg-gradient-to-br from-gray-50 to-white py-20 px-4 border-b border-gray-100">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
+      <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 py-20 px-4 border-b border-gray-100 dark:border-gray-700">
         <div className="max-w-5xl mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-primary mb-6 leading-tight">
+          <h1 className="text-5xl md:text-6xl font-bold text-primary dark:text-white mb-6 leading-tight">
             Tech Communities <span className="text-accent">Club</span>
           </h1>
-          <p className="text-xl text-secondary max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-secondary dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Construire une génération numérique forte et engagée à travers
             l'Afrique.
           </p>
@@ -53,29 +53,31 @@ export default function AboutPage() {
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="bg-gradient-to-br from-gray-50 to-white border border-gray-200 rounded-xl p-6 text-center hover:border-accent transition-all"
+              className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 text-center hover:border-accent transition-all"
             >
               <p className="text-3xl md:text-4xl font-bold text-accent mb-2">
                 {stat.value}
               </p>
-              <p className="text-secondary font-medium text-sm">{stat.label}</p>
+              <p className="text-secondary dark:text-gray-400 font-medium text-sm">
+                {stat.label}
+              </p>
             </div>
           ))}
         </div>
 
         {/* Description */}
-        <div className="bg-gradient-to-br from-gray-50 to-white border border-gray-200 rounded-2xl p-10 md:p-14 mb-12 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6">
+        <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-10 md:p-14 mb-12 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-primary dark:text-white mb-6">
             À propos du TCC Blog
           </h2>
-          <p className="text-secondary leading-relaxed mb-6 text-lg">
+          <p className="text-secondary dark:text-gray-300 leading-relaxed mb-6 text-lg">
             Le <strong>TCC Blog</strong> est l'espace officiel de documentation
             des événements et activités des Tech Communities Clubs à travers
             l'Afrique. Chaque article publié ici raconte l'histoire d'un
             événement, partage les connaissances acquises et célèbre les
             réussites de notre communauté.
           </p>
-          <p className="text-secondary leading-relaxed text-lg">
+          <p className="text-secondary dark:text-gray-300 leading-relaxed text-lg">
             Que vous ayez manqué un workshop, une conférence ou une session de
             formation, vous trouverez ici tous les compte-rendus détaillés.
             Notre mission : rendre accessible à tous les ressources et
@@ -85,7 +87,7 @@ export default function AboutPage() {
 
         {/* Mission, Vision, Impact */}
         <div className="mb-16">
-          <h2 className="text-3xl font-bold text-primary mb-8 text-center">
+          <h2 className="text-3xl font-bold text-primary dark:text-white mb-8 text-center">
             Notre Mission, Vision & Impact
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -94,7 +96,7 @@ export default function AboutPage() {
               return (
                 <div
                   key={index}
-                  className="bg-white border border-gray-200 rounded-2xl p-8 text-center hover:border-accent hover:shadow-lg transition-all"
+                  className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 text-center hover:border-accent hover:shadow-lg transition-all"
                 >
                   <div
                     className="w-16 h-16 rounded-2xl mx-auto mb-5 flex items-center justify-center"
@@ -105,10 +107,10 @@ export default function AboutPage() {
                       style={{ color: feature.color }}
                     />
                   </div>
-                  <h3 className="text-xl font-bold text-primary mb-3">
+                  <h3 className="text-xl font-bold text-primary dark:text-white mb-3">
                     {feature.title}
                   </h3>
-                  <p className="text-secondary leading-relaxed">
+                  <p className="text-secondary dark:text-gray-300 leading-relaxed">
                     {feature.description}
                   </p>
                 </div>
@@ -118,14 +120,14 @@ export default function AboutPage() {
         </div>
 
         {/* Citation */}
-        <div className="bg-gradient-to-br from-accent/5 to-accent-green/5 border border-accent/20 rounded-2xl p-10 text-center">
-          <p className="text-lg md:text-xl text-primary italic leading-relaxed mb-4">
+        <div className="bg-gradient-to-br from-accent/5 to-accent-green/5 dark:from-accent/10 dark:to-accent-green/10 border border-accent/20 dark:border-accent/30 rounded-2xl p-10 text-center">
+          <p className="text-lg md:text-xl text-primary dark:text-white italic leading-relaxed mb-4">
             "Croyez au pouvoir du TCC : chaque événement, chaque connexion,
             chaque opportunité est un pas en avant dans votre parcours
             technologique. Faites confiance au processus — nous sommes là pour
             vous aider à devenir les talents et les leaders de demain."
           </p>
-          <p className="text-secondary font-semibold">
+          <p className="text-secondary dark:text-gray-300 font-semibold">
             — Parfait TOKE, Program Manager TCC
           </p>
         </div>

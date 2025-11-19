@@ -42,12 +42,12 @@ export default function ArticleDetailPage({
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="bg-gradient-to-br from-gray-50 to-white border-b border-gray-100">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
+      <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 border-b border-gray-100 dark:border-gray-700 transition-colors">
         <div className="max-w-4xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6 md:py-8">
           <button
             onClick={onBack}
-            className="inline-flex items-center space-x-2 text-secondary hover:text-accent transition-colors mb-6 md:mb-8 px-3 md:px-4 py-2 rounded-lg hover:bg-gray-50 text-sm md:text-base"
+            className="inline-flex items-center space-x-2 text-secondary dark:text-gray-400 hover:text-accent transition-colors mb-6 md:mb-8 px-3 md:px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 text-sm md:text-base"
           >
             <ArrowLeft className="w-5 h-5" />
             <span className="font-medium">Retour aux articles</span>
@@ -63,7 +63,7 @@ export default function ArticleDetailPage({
             </div>
           )}
 
-          <div className="flex items-center space-x-6 text-secondary mb-6">
+          <div className="flex items-center space-x-6 text-secondary dark:text-gray-400 mb-6">
             <div className="flex items-center space-x-2">
               <Calendar className="w-5 h-5 text-accent" />
               <span>{formatDate(article.published_at)}</span>
@@ -78,18 +78,18 @@ export default function ArticleDetailPage({
             </div>
           </div>
 
-          <div className="flex items-center space-x-3 text-sm text-secondary mb-6">
+          <div className="flex items-center space-x-3 text-sm text-secondary dark:text-gray-400 mb-6">
             <User className="w-5 h-5" />
             <span className="font-medium">{article.author.name}</span>
             <span className="text-gray-400">•</span>
             <span>{article.author.chapter}</span>
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-bold text-primary mb-6 leading-tight">
+          <h1 className="text-4xl md:text-5xl font-bold text-primary dark:text-white mb-6 leading-tight">
             {article.title}
           </h1>
 
-          <p className="text-xl text-secondary leading-relaxed mb-8 pb-8 border-b border-gray-200">
+          <p className="text-xl text-secondary dark:text-gray-300 leading-relaxed mb-8 pb-8 border-b border-gray-200 dark:border-gray-700">
             {article.summary}
           </p>
         </div>
@@ -98,13 +98,13 @@ export default function ArticleDetailPage({
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <article className="prose prose-lg max-w-none">
           <div
-            className="text-secondary leading-relaxed"
+            className="text-secondary dark:text-gray-300 leading-relaxed"
             dangerouslySetInnerHTML={{ __html: article.content }}
           />
         </article>
 
         {/* Section Likes & Commentaires */}
-        <div className="mt-12 pt-8 border-t border-gray-200">
+        <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
           {/* Likes */}
           <div className="flex items-center space-x-4 mb-8">
             <button
@@ -118,7 +118,7 @@ export default function ArticleDetailPage({
               <Heart className={`w-5 h-5 ${liked ? "fill-current" : ""}`} />
               <span>{likesCount}</span>
             </button>
-            <div className="flex items-center space-x-2 text-secondary">
+            <div className="flex items-center space-x-2 text-secondary dark:text-gray-400">
               <MessageCircle className="w-5 h-5" />
               <span className="font-medium">
                 {comments.length} commentaires
@@ -129,11 +129,13 @@ export default function ArticleDetailPage({
           {/* Commentaires */}
           {comments.length > 0 && (
             <div className="space-y-6 mb-8">
-              <h3 className="text-2xl font-bold text-primary">Commentaires</h3>
+              <h3 className="text-2xl font-bold text-primary dark:text-white">
+                Commentaires
+              </h3>
               {comments.map((comment) => (
                 <div
                   key={comment.id}
-                  className="bg-gray-50 border border-gray-200 rounded-xl p-6"
+                  className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6"
                 >
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center space-x-3">
@@ -141,10 +143,10 @@ export default function ArticleDetailPage({
                         <User className="w-5 h-5 text-accent" />
                       </div>
                       <div>
-                        <p className="font-semibold text-primary">
+                        <p className="font-semibold text-primary dark:text-white">
                           {comment.author}
                         </p>
-                        <p className="text-sm text-secondary">
+                        <p className="text-sm text-secondary dark:text-gray-400">
                           {formatDate(comment.created_at)}
                         </p>
                       </div>
@@ -154,7 +156,7 @@ export default function ArticleDetailPage({
                       <span className="text-sm">{comment.likes}</span>
                     </div>
                   </div>
-                  <p className="text-secondary leading-relaxed">
+                  <p className="text-secondary dark:text-gray-300 leading-relaxed">
                     {comment.content}
                   </p>
                 </div>
@@ -163,12 +165,12 @@ export default function ArticleDetailPage({
           )}
 
           {/* Formulaire de commentaire */}
-          <div className="bg-gradient-to-br from-gray-50 to-white border border-gray-200 rounded-xl p-6 mb-8">
-            <h3 className="text-xl font-bold text-primary mb-4">
+          <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 mb-8">
+            <h3 className="text-xl font-bold text-primary dark:text-white mb-4">
               Laisser un commentaire
             </h3>
             <textarea
-              className="w-full border border-gray-300 rounded-lg p-4 mb-4 focus:ring-2 focus:ring-accent focus:border-transparent resize-none"
+              className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg p-4 mb-4 focus:ring-2 focus:ring-accent focus:border-transparent resize-none"
               rows={4}
               placeholder="Partagez votre avis sur cet événement..."
             />

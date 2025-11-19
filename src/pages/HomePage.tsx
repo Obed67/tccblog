@@ -63,14 +63,16 @@ export default function HomePage({
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="bg-gradient-to-br from-gray-50 to-white py-12 md:py-16 lg:py-20 px-4 border-b border-gray-100">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
+      <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 py-12 md:py-16 lg:py-20 px-4 border-b border-gray-100 dark:border-gray-700 transition-colors">
         <div className="max-w-5xl mx-auto text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-4 md:mb-6 leading-tight px-2">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary dark:text-white mb-4 md:mb-6 leading-tight px-2">
             Nous connectons les étudiants aux{" "}
-            <span className="text-accent">Communautés Tech</span>
+            <span className="text-accent dark:text-blue-400">
+              Communautés Tech
+            </span>
           </h1>
-          <p className="text-base sm:text-lg md:text-xl text-secondary mx-auto max-w-3xl leading-relaxed px-4">
+          <p className="text-base sm:text-lg md:text-xl text-secondary dark:text-gray-300 mx-auto max-w-3xl leading-relaxed px-4">
             Découvrez nos dernières actualités, événements et ressources pour la
             communauté technologique africaine.
           </p>
@@ -80,7 +82,7 @@ export default function HomePage({
       <div className="max-w-5xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-8 md:py-12 lg:py-16">
         {articles.length === 0 ? (
           <div className="text-center py-20">
-            <p className="text-secondary text-lg">
+            <p className="text-secondary dark:text-gray-400 text-lg">
               Aucun article disponible pour le moment.
             </p>
           </div>
@@ -101,13 +103,13 @@ export default function HomePage({
               <div className="mt-16 mb-8">
                 <div className="flex flex-col items-center gap-6">
                   {/* Info page */}
-                  <div className="text-sm text-secondary">
+                  <div className="text-sm text-secondary dark:text-gray-400">
                     Page{" "}
-                    <span className="font-semibold text-primary">
+                    <span className="font-semibold text-primary dark:text-white">
                       {currentPage}
                     </span>{" "}
                     sur{" "}
-                    <span className="font-semibold text-primary">
+                    <span className="font-semibold text-primary dark:text-white">
                       {totalPages}
                     </span>
                   </div>
