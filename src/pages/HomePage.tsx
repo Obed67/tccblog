@@ -5,19 +5,24 @@ import ArticleCard from "../components/ArticleCard";
 
 interface HomePageProps {
   onArticleClick: (article: Article) => void;
+  articles: Article[];
 }
 
-export default function HomePage({ onArticleClick }: HomePageProps) {
-  const [articles, setArticles] = useState<Article[]>([]);
+export default function HomePage({
+  onArticleClick,
+  articles: propArticles,
+}: HomePageProps) {
+  const [articles, setArticles] = useState<Article[]>(propArticles);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Mettre à jour les articles quand les props changent
+    setArticles(propArticles);
     // Simuler un chargement
     setTimeout(() => {
-      setArticles(mockArticles);
       setLoading(false);
     }, 500);
-  }, []);
+  }, [propArticles]);
 
   if (loading) {
     return (
