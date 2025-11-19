@@ -177,16 +177,6 @@ export default function ArticleDetailPage({
             </button>
           </div>
         </div>
-
-        <div className="pt-8 border-t border-gray-200">
-          <button
-            onClick={onBack}
-            className="inline-flex items-center space-x-2 bg-accent text-white px-6 py-3 rounded-lg hover:bg-accent/90 transition-all font-semibold shadow-md hover:shadow-lg"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span>Retour aux articles</span>
-          </button>
-        </div>
       </div>
     </div>
   );
