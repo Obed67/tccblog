@@ -1,6 +1,6 @@
 # 📰 TCC Blog
 
-> Plateforme de documentation des événements Tech Communities Club à travers l'Afrique
+> Plateforme de documentation des événements Tech Communities Clubs à travers l'Afrique
 
 ![TCC Blog](https://img.shields.io/badge/TCC-Blog-blue?style=for-the-badge)
 ![React](https://img.shields.io/badge/React-18.x-61DAFB?style=for-the-badge&logo=react)
