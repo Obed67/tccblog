@@ -1,4 +1,4 @@
-import { Calendar, Tag } from "lucide-react";
+import { Calendar, Tag, User } from "lucide-react";
 import { Article } from "../lib/supabase";
 
 interface ArticleCardProps {
@@ -36,14 +36,16 @@ export default function ArticleCard({ article, onClick }: ArticleCardProps) {
       </div>
 
       <div className="p-6">
-        <div className="flex items-center space-x-4 text-sm text-secondary mb-4">
-          <div className="flex items-center space-x-1.5">
-            <Calendar className="w-4 h-4 text-accent" />
-            <span>{formatDate(article.published_at)}</span>
-          </div>
-          <div className="flex items-center space-x-1.5">
-            <Tag className="w-4 h-4 text-accent-green" />
-            <span className="capitalize">{article.category}</span>
+        <div className="flex items-center justify-between text-sm text-secondary mb-4">
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-1.5">
+              <Calendar className="w-4 h-4 text-accent" />
+              <span>{formatDate(article.published_at)}</span>
+            </div>
+            <div className="flex items-center space-x-1.5">
+              <Tag className="w-4 h-4 text-accent-green" />
+              <span className="capitalize">{article.category}</span>
+            </div>
           </div>
         </div>
 
@@ -55,9 +57,21 @@ export default function ArticleCard({ article, onClick }: ArticleCardProps) {
           {article.summary}
         </p>
 
-        <div className="pt-2 border-t border-gray-100">
+        <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+          <div className="flex items-center space-x-2 text-sm">
+            <User className="w-4 h-4 text-secondary" />
+            <div className="flex flex-col">
+              <span className="font-medium text-primary">
+                {article.author.name}
+              </span>
+              <span className="text-xs text-secondary">
+                {article.author.chapter}
+              </span>
+            </div>
+          </div>
+
           <span className="inline-flex items-center text-accent font-semibold text-sm group-hover:gap-2 transition-all">
-            Lire la suite
+            Lire
             <svg
               className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform"
               fill="none"
