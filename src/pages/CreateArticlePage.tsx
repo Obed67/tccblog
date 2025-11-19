@@ -1,5 +1,12 @@
-import { useState } from "react";
-import { ArrowLeft, Save, Eye, Image as ImageIcon } from "lucide-react";
+import { useState, useRef } from "react";
+import {
+  ArrowLeft,
+  Save,
+  Eye,
+  FileText,
+  Presentation,
+  Image as ImageIcon,
+} from "lucide-react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "../styles/quill-custom.css";
@@ -25,6 +32,97 @@ export default function CreateArticlePage({
   });
 
   const [preview, setPreview] = useState(false);
+  const quillRef = useRef<ReactQuill>(null);
+
+  // Refs for hidden file inputs (PDF and Slides only)
+  const pdfInputRef = useRef<HTMLInputElement>(null);
+  const slidesInputRef = useRef<HTMLInputElement>(null);
+
+  // Handle file selection and insertion at cursor position
+  const handleFileSelect = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    type: "pdf" | "slides"
+  ) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      const result = e.target?.result as string;
+      const quill = quillRef.current?.getEditor();
+      if (!quill) return;
+
+      // Get current cursor position
+      const range = quill.getSelection(true);
+      const cursorPosition = range ? range.index : quill.getLength();
+
+      if (type === "pdf") {
+        // Create PDF embed at cursor position
+        const pdfHtml = `
+          <div class="media-embed pdf-embed" contenteditable="false">
+            <div class="media-header">
+              <svg width="20" height="20" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
+              <span class="media-title">${file.name}</span>
+              <div class="media-actions">
+                <a href="${result}" download="${file.name}" class="btn-open">Télécharger →</a>
+              </div>
+            </div>
+            <div class="media-viewer">
+              <iframe src="${result}" frameborder="0"></iframe>
+            </div>
+            <p class="media-caption">📄 Document PDF intégré - Cliquez pour naviguer ou télécharger</p>
+          </div>
+          <p><br></p>
+        `;
+        quill.clipboard.dangerouslyPasteHTML(cursorPosition, pdfHtml);
+        quill.setSelection(cursorPosition + 2);
+      } else if (type === "slides") {
+        // For slides (PowerPoint, etc.), show preview with download
+        const slidesHtml = `
+          <div class="media-embed slides-embed" contenteditable="false">
+            <div class="media-header">
+              <svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+              <span class="media-title">${file.name}</span>
+              <div class="media-actions">
+                <a href="${result}" download="${file.name}" class="btn-open">Télécharger →</a>
+              </div>
+            </div>
+            <div class="media-viewer slides-viewer">
+              <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: #f3f4f6;">
+                <div style="text-align: center; padding: 40px;">
+                  <svg width="64" height="64" fill="none" stroke="#10b981" stroke-width="2" style="margin: 0 auto 16px;">
+                    <rect x="2" y="3" width="60" height="42" rx="2" ry="2"></rect>
+                    <line x1="20" y1="51" x2="44" y2="51"></line>
+                    <line x1="32" y1="45" x2="32" y2="51"></line>
+                  </svg>
+                  <p style="color: #6b7280; font-size: 14px; margin: 0;">Présentation prête à être téléchargée</p>
+                  <p style="color: #9ca3af; font-size: 12px; margin-top: 8px;">${file.name}</p>
+                </div>
+              </div>
+            </div>
+            <p class="media-caption">📊 Fichier de présentation - Téléchargez pour visualiser</p>
+          </div>
+          <p><br></p>
+        `;
+        quill.clipboard.dangerouslyPasteHTML(cursorPosition, slidesHtml);
+        quill.setSelection(cursorPosition + 2);
+      }
+    };
+
+    // Read file as Data URL (Base64)
+    reader.readAsDataURL(file);
+
+    // Reset input value to allow same file selection again
+    event.target.value = "";
+  };
 
   const categories = [
     "Cybersécurité",
@@ -64,16 +162,27 @@ export default function CreateArticlePage({
     }));
   };
 
+  // Handlers pour insérer les médias via file input
+  const handleInsertPDF = () => {
+    pdfInputRef.current?.click();
+  };
+
+  const handleInsertSlides = () => {
+    slidesInputRef.current?.click();
+  };
+
   // Configuration de l'éditeur Quill
   const quillModules = {
-    toolbar: [
-      [{ header: [1, 2, 3, false] }],
-      ["bold", "italic", "underline", "strike"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      [{ color: [] }, { background: [] }],
-      ["link"],
-      ["clean"],
-    ],
+    toolbar: {
+      container: [
+        [{ header: [1, 2, 3, false] }],
+        ["bold", "italic", "underline", "strike"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        [{ color: [] }, { background: [] }],
+        ["link", "image"],
+        ["clean"],
+      ],
+    },
   };
 
   const quillFormats = [
@@ -87,6 +196,7 @@ export default function CreateArticlePage({
     "color",
     "background",
     "link",
+    "image",
   ];
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -214,8 +324,46 @@ export default function CreateArticlePage({
               <label className="block text-sm font-semibold text-primary mb-2">
                 Contenu de l'article *
               </label>
+
+              {/* Hidden file inputs */}
+              <input
+                ref={pdfInputRef}
+                type="file"
+                accept=".pdf"
+                onChange={(e) => handleFileSelect(e, "pdf")}
+                className="hidden"
+              />
+              <input
+                ref={slidesInputRef}
+                type="file"
+                accept=".ppt,.pptx,.pdf,.odp"
+                onChange={(e) => handleFileSelect(e, "slides")}
+                className="hidden"
+              />
+
+              {/* Boutons d'insertion de médias */}
+              <div className="flex items-center gap-2 mb-3">
+                <button
+                  type="button"
+                  onClick={handleInsertPDF}
+                  className="flex items-center gap-2 px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors text-sm font-medium"
+                >
+                  <FileText className="w-4 h-4" />
+                  📄 Importer PDF
+                </button>
+                <button
+                  type="button"
+                  onClick={handleInsertSlides}
+                  className="flex items-center gap-2 px-4 py-2 bg-green-50 text-green-600 rounded-lg hover:bg-green-100 transition-colors text-sm font-medium"
+                >
+                  <Presentation className="w-4 h-4" />
+                  📊 Importer Slides
+                </button>
+              </div>
+
               <div className="bg-white border border-gray-300 rounded-lg overflow-hidden">
                 <ReactQuill
+                  ref={quillRef}
                   theme="snow"
                   value={formData.content}
                   onChange={handleContentChange}
@@ -227,8 +375,8 @@ export default function CreateArticlePage({
                 />
               </div>
               <p className="text-xs text-secondary mt-2">
-                Utilisez la barre d'outils pour formater votre texte (gras,
-                italique, titres, listes, etc.)
+                Utilisez la barre d'outils pour formater votre texte. Les
+                boutons ci-dessus permettent d'insérer des médias riches.
               </p>
             </div>
 

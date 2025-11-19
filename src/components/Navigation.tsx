@@ -1,16 +1,12 @@
-interface NavigationProps {
-  currentPage: "accueil" | "evenements" | "apropos";
-  onNavigate: (page: "accueil" | "evenements" | "apropos") => void;
-}
+import { Link, useLocation } from "react-router-dom";
 
-export default function Navigation({
-  currentPage,
-  onNavigate,
-}: NavigationProps) {
+export default function Navigation() {
+  const location = useLocation();
+
   const navItems = [
-    { id: "accueil" as const, label: "Home" },
-    { id: "evenements" as const, label: "Archives" },
-    { id: "apropos" as const, label: "About" },
+    { path: "/", label: "Home" },
+    { path: "/archives", label: "Archives" },
+    { path: "/about", label: "About" },
   ];
 
   return (
@@ -18,8 +14,8 @@ export default function Navigation({
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white border border-gray-200 rounded-lg shadow-sm px-6 py-2 flex items-center justify-between">
           {/* Logo */}
-          <button
-            onClick={() => onNavigate("accueil")}
+          <Link
+            to="/"
             className="flex-shrink-0 hover:opacity-80 transition-opacity"
           >
             <img
@@ -33,17 +29,17 @@ export default function Navigation({
               }}
             />
             <span className="hidden text-xl font-bold text-gray-900">TCC</span>
-          </button>
+          </Link>
 
           {/* Navigation Menu */}
           <div className="flex items-center space-x-1">
             {navItems.map((item) => {
-              const isActive = currentPage === item.id;
+              const isActive = location.pathname === item.path;
 
               return (
-                <button
-                  key={item.id}
-                  onClick={() => onNavigate(item.id)}
+                <Link
+                  key={item.path}
+                  to={item.path}
                   className={`px-5 py-2 text-sm font-medium rounded-lg transition-colors duration-200 ${
                     isActive
                       ? "text-gray-900 font-semibold"
@@ -51,7 +47,7 @@ export default function Navigation({
                   }`}
                 >
                   {item.label}
-                </button>
+                </Link>
               );
             })}
           </div>
