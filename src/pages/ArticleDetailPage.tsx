@@ -44,10 +44,10 @@ export default function ArticleDetailPage({
   return (
     <div className="min-h-screen bg-white">
       <div className="bg-gradient-to-br from-gray-50 to-white border-b border-gray-100">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-4xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6 md:py-8">
           <button
             onClick={onBack}
-            className="inline-flex items-center space-x-2 text-secondary hover:text-accent transition-colors mb-8 px-4 py-2 rounded-lg hover:bg-gray-50"
+            className="inline-flex items-center space-x-2 text-secondary hover:text-accent transition-colors mb-6 md:mb-8 px-3 md:px-4 py-2 rounded-lg hover:bg-gray-50 text-sm md:text-base"
           >
             <ArrowLeft className="w-5 h-5" />
             <span className="font-medium">Retour aux articles</span>

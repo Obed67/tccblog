@@ -64,20 +64,20 @@ export default function HomePage({
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="bg-gradient-to-br from-gray-50 to-white py-20 px-4 border-b border-gray-100">
+      <div className="bg-gradient-to-br from-gray-50 to-white py-12 md:py-16 lg:py-20 px-4 border-b border-gray-100">
         <div className="max-w-5xl mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-primary mb-6 leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-4 md:mb-6 leading-tight px-2">
             Nous connectons les étudiants aux{" "}
             <span className="text-accent">Communautés Tech</span>
           </h1>
-          <p className="text-xl text-secondary mx-auto max-w-3xl leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-secondary mx-auto max-w-3xl leading-relaxed px-4">
             Découvrez nos dernières actualités, événements et ressources pour la
             communauté technologique africaine.
           </p>
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-5xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-8 md:py-12 lg:py-16">
         {articles.length === 0 ? (
           <div className="text-center py-20">
             <p className="text-secondary text-lg">
@@ -113,12 +113,12 @@ export default function HomePage({
                   </div>
 
                   {/* Navigation */}
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 md:gap-3 px-2">
                     {/* Bouton Précédent */}
                     <button
                       onClick={goToPreviousPage}
                       disabled={currentPage === 1}
-                      className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium transition-all ${
+                      className={`flex items-center gap-1 md:gap-2 px-3 md:px-5 py-2 md:py-2.5 rounded-lg md:rounded-xl font-medium text-sm md:text-base transition-all ${
                         currentPage === 1
                           ? "bg-gray-100 text-gray-400 cursor-not-allowed"
                           : "bg-white border-2 border-gray-200 text-gray-700 hover:border-accent hover:text-accent hover:shadow-md"
@@ -129,7 +129,7 @@ export default function HomePage({
                     </button>
 
                     {/* Numéros de page - affiche max 7 pages */}
-                    <div className="flex gap-2">
+                    <div className="flex gap-1 md:gap-2">
                       {(() => {
                         const pages = [];
                         const maxVisible = 7;
@@ -193,7 +193,7 @@ export default function HomePage({
                     <button
                       onClick={goToNextPage}
                       disabled={currentPage === totalPages}
-                      className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium transition-all ${
+                      className={`flex items-center gap-1 md:gap-2 px-3 md:px-5 py-2 md:py-2.5 rounded-lg md:rounded-xl font-medium text-sm md:text-base transition-all ${
                         currentPage === totalPages
                           ? "bg-gray-100 text-gray-400 cursor-not-allowed"
                           : "bg-white border-2 border-gray-200 text-gray-700 hover:border-accent hover:text-accent hover:shadow-md"
