@@ -97,17 +97,10 @@ export default function ArticleDetailPage({
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <article className="prose prose-lg max-w-none">
-          {article.content.split("\n").map(
-            (paragraph, index) =>
-              paragraph.trim() && (
-                <p
-                  key={index}
-                  className="text-secondary leading-relaxed mb-6 text-lg"
-                >
-                  {paragraph}
-                </p>
-              )
-          )}
+          <div
+            className="text-secondary leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: article.content }}
+          />
         </article>
 
         {/* Section Likes & Commentaires */}

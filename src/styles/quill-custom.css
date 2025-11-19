@@ -1,0 +1,67 @@
+/* Custom styles for React Quill Editor */
+
+.custom-quill-editor .ql-container {
+  min-height: 400px;
+  font-size: 16px;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    sans-serif;
+}
+
+.custom-quill-editor .ql-editor {
+  min-height: 400px;
+  padding: 20px;
+}
+
+.custom-quill-editor .ql-editor::before {
+  font-style: normal;
+  color: #9ca3af;
+}
+
+/* Toolbar styling */
+.custom-quill-editor .ql-toolbar {
+  background: #f9fafb;
+  border-bottom: 2px solid #e5e7eb !important;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  padding: 12px;
+}
+
+.custom-quill-editor .ql-container {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+/* Active button styling */
+.custom-quill-editor .ql-toolbar button:hover,
+.custom-quill-editor .ql-toolbar button:focus,
+.custom-quill-editor .ql-toolbar button.ql-active {
+  color: #3b82f6 !important;
+}
+
+.custom-quill-editor .ql-toolbar .ql-stroke {
+  stroke: #4b5563;
+}
+
+.custom-quill-editor .ql-toolbar button:hover .ql-stroke,
+.custom-quill-editor .ql-toolbar button.ql-active .ql-stroke {
+  stroke: #3b82f6 !important;
+}
+
+.custom-quill-editor .ql-toolbar .ql-fill {
+  fill: #4b5563;
+}
+
+.custom-quill-editor .ql-toolbar button:hover .ql-fill,
+.custom-quill-editor .ql-toolbar button.ql-active .ql-fill {
+  fill: #3b82f6 !important;
+}
+
+/* Focus state */
+.custom-quill-editor .ql-container.ql-snow {
+  border-color: #e5e7eb;
+}
+
+.custom-quill-editor:focus-within .ql-container {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}

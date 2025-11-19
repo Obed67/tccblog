@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { ArrowLeft, Save, Eye, Image as ImageIcon } from "lucide-react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import "../styles/quill-custom.css";
 
 interface CreateArticlePageProps {
   onBack: () => void;
-  onPublish: (article: any) => void;
+  onPublish: (article: unknown) => void;
 }
 
 export default function CreateArticlePage({
@@ -53,6 +56,38 @@ export default function CreateArticlePage({
       }),
     }));
   };
+
+  const handleContentChange = (value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      content: value,
+    }));
+  };
+
+  // Configuration de l'éditeur Quill
+  const quillModules = {
+    toolbar: [
+      [{ header: [1, 2, 3, false] }],
+      ["bold", "italic", "underline", "strike"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ color: [] }, { background: [] }],
+      ["link"],
+      ["clean"],
+    ],
+  };
+
+  const quillFormats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "list",
+    "bullet",
+    "color",
+    "background",
+    "link",
+  ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -179,15 +214,22 @@ export default function CreateArticlePage({
               <label className="block text-sm font-semibold text-primary mb-2">
                 Contenu de l'article *
               </label>
-              <textarea
-                name="content"
-                value={formData.content}
-                onChange={handleChange}
-                required
-                rows={16}
-                placeholder="Rédigez le contenu complet de votre article. Séparez les paragraphes par une ligne vide..."
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent resize-none font-serif"
-              />
+              <div className="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                <ReactQuill
+                  theme="snow"
+                  value={formData.content}
+                  onChange={handleContentChange}
+                  modules={quillModules}
+                  formats={quillFormats}
+                  placeholder="Rédigez le contenu complet de votre article..."
+                  className="custom-quill-editor"
+                  style={{ minHeight: "400px" }}
+                />
+              </div>
+              <p className="text-xs text-secondary mt-2">
+                Utilisez la barre d'outils pour formater votre texte (gras,
+                italique, titres, listes, etc.)
+              </p>
             </div>
 
             {/* Image */}
@@ -320,17 +362,10 @@ export default function CreateArticlePage({
 
               <article className="prose prose-lg max-w-none">
                 {formData.content ? (
-                  formData.content.split("\n").map(
-                    (paragraph, index) =>
-                      paragraph.trim() && (
-                        <p
-                          key={index}
-                          className="text-secondary leading-relaxed mb-6 text-lg"
-                        >
-                          {paragraph}
-                        </p>
-                      )
-                  )
+                  <div
+                    className="text-secondary leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: formData.content }}
+                  />
                 ) : (
                   <p className="text-secondary italic">
                     Contenu de l'article...
