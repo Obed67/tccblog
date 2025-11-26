@@ -6,9 +6,14 @@ import {
   Eye,
   MessageCircle,
   User,
+  Clock,
 } from "lucide-react";
-import { Article, mockComments } from "../lib/supabase";
+import { Article, mockComments, mockArticles } from "../lib/supabase";
 import { useState } from "react";
+import ReadingProgress from "../components/ReadingProgress";
+import ShareButtons from "../components/ShareButtons";
+import RelatedArticles from "../components/RelatedArticles";
+import { calculateReadingTime } from "../utils/readingTime";
 
 interface ArticleDetailPageProps {
   article: Article;
@@ -41,8 +46,12 @@ export default function ArticleDetailPage({
     setLiked(!liked);
   };
 
+  const readingTime = calculateReadingTime(article.content);
+  const currentUrl = window.location.href;
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
+      <ReadingProgress />
       <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 border-b border-gray-100 dark:border-gray-700 transition-colors">
         <div className="max-w-4xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6 md:py-8">
           <button
@@ -63,7 +72,7 @@ export default function ArticleDetailPage({
             </div>
           )}
 
-          <div className="flex items-center space-x-6 text-secondary dark:text-gray-400 mb-6">
+          <div className="flex items-center space-x-6 text-secondary dark:text-gray-400 mb-6 flex-wrap">
             <div className="flex items-center space-x-2">
               <Calendar className="w-5 h-5 text-accent" />
               <span>{formatDate(article.published_at)}</span>
@@ -75,6 +84,10 @@ export default function ArticleDetailPage({
             <div className="flex items-center space-x-2">
               <Eye className="w-5 h-5 text-gray-400" />
               <span>{article.views} vues</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Clock className="w-5 h-5 text-gray-400" />
+              <span>{readingTime}</span>
             </div>
           </div>
 
@@ -96,6 +109,15 @@ export default function ArticleDetailPage({
       </div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Share Buttons */}
+        <div className="mb-8">
+          <ShareButtons
+            title={article.title}
+            url={currentUrl}
+            description={article.summary}
+          />
+        </div>
+
         <article className="prose prose-lg max-w-none">
           <div
             className="text-secondary dark:text-gray-300 leading-relaxed"
@@ -179,6 +201,13 @@ export default function ArticleDetailPage({
             </button>
           </div>
         </div>
+
+        {/* Related Articles */}
+        <RelatedArticles
+          currentArticle={article}
+          allArticles={mockArticles}
+          maxItems={3}
+        />
       </div>
     </div>
   );

@@ -1,5 +1,8 @@
-import { Calendar, Tag, User } from "lucide-react";
+import { Calendar, Tag, User, Bookmark, Clock } from "lucide-react";
 import { Article } from "../lib/supabase";
+import { useBookmarks } from "../hooks/useBookmarks";
+import { calculateReadingTime } from "../utils/readingTime";
+import { getRelativeTime } from "../utils/helpers";
 
 interface ArticleCardProps {
   article: Article;
@@ -7,14 +10,23 @@ interface ArticleCardProps {
 }
 
 export default function ArticleCard({ article, onClick }: ArticleCardProps) {
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return new Intl.DateTimeFormat("fr-FR", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }).format(date);
+  const { isBookmarked, toggleBookmark } = useBookmarks();
+  const bookmarked = isBookmarked(article.id);
+
+  const handleBookmarkClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    toggleBookmark(article.id);
   };
+
+  // Check if article is new (published within last 7 days)
+  const isNew = () => {
+    const publishedDate = new Date(article.published_at);
+    const now = new Date();
+    const diffInDays = (now.getTime() - publishedDate.getTime()) / (1000 * 60 * 60 * 24);
+    return diffInDays <= 7;
+  };
+
+  const readingTime = calculateReadingTime(article.content);
 
   return (
     <article
@@ -27,12 +39,33 @@ export default function ArticleCard({ article, onClick }: ArticleCardProps) {
             src={article.image_url}
             alt={article.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            loading="lazy"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
             <span className="text-gray-300 text-6xl font-bold">TCC</span>
           </div>
         )}
+        
+        {/* New Badge */}
+        {isNew() && (
+          <div className="absolute top-3 left-3 px-3 py-1 bg-accent text-white text-xs font-bold rounded-full shadow-lg">
+            NOUVEAU
+          </div>
+        )}
+        
+        {/* Bookmark Button */}
+        <button
+          onClick={handleBookmarkClick}
+          className={`absolute top-3 right-3 p-2 rounded-full backdrop-blur-sm transition-all ${
+            bookmarked
+              ? "bg-accent text-white"
+              : "bg-white/90 text-gray-700 hover:bg-accent hover:text-white"
+          }`}
+          aria-label={bookmarked ? "Retirer des favoris" : "Ajouter aux favoris"}
+        >
+          <Bookmark className={`w-4 h-4 ${bookmarked ? "fill-current" : ""}`} />
+        </button>
       </div>
 
       <div className="p-6">
@@ -40,12 +73,16 @@ export default function ArticleCard({ article, onClick }: ArticleCardProps) {
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-1.5">
               <Calendar className="w-4 h-4 text-accent" />
-              <span>{formatDate(article.published_at)}</span>
+              <span>{getRelativeTime(article.published_at)}</span>
             </div>
             <div className="flex items-center space-x-1.5">
               <Tag className="w-4 h-4 text-accent-green" />
               <span className="capitalize">{article.category}</span>
             </div>
+          </div>
+          <div className="flex items-center space-x-1.5">
+            <Clock className="w-4 h-4 text-gray-400" />
+            <span className="text-xs">{readingTime}</span>
           </div>
         </div>
 

@@ -1,11 +1,17 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Navigation from "./components/Navigation";
+import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
 import ArticleDetailPage from "./pages/ArticleDetailPage";
 import EventsPage from "./pages/EventsPage";
 import AboutPage from "./pages/AboutPage";
 import CreateArticlePage from "./pages/CreateArticlePage";
+import SearchPage from "./pages/SearchPage";
+import CategoryPage from "./pages/CategoryPage";
+import AuthorPage from "./pages/AuthorPage";
+import BookmarksPage from "./pages/BookmarksPage";
+import NotFoundPage from "./pages/NotFoundPage";
 import { Article, mockArticles } from "./lib/supabase";
 
 function AppContent() {
@@ -34,6 +40,7 @@ function AppContent() {
                 onArticleClick={handleArticleClick}
                 articles={articles}
               />
+              <Footer />
               <button
                 onClick={() => navigate("/create")}
                 className="fixed bottom-8 right-8 bg-accent text-white p-4 rounded-full shadow-lg hover:shadow-xl hover:scale-110 transition-all z-50 group"
@@ -65,6 +72,7 @@ function AppContent() {
             <>
               <Navigation />
               <EventsPage />
+              <Footer />
               <button
                 onClick={() => navigate("/create")}
                 className="fixed bottom-8 right-8 bg-accent text-white p-4 rounded-full shadow-lg hover:shadow-xl hover:scale-110 transition-all z-50 group"
@@ -93,6 +101,7 @@ function AppContent() {
             <>
               <Navigation />
               <AboutPage />
+              <Footer />
               <button
                 onClick={() => navigate("/create")}
                 className="fixed bottom-8 right-8 bg-accent text-white p-4 rounded-full shadow-lg hover:shadow-xl hover:scale-110 transition-all z-50 group"
@@ -128,6 +137,7 @@ function AppContent() {
                 }
                 onBack={() => navigate("/")}
               />
+              <Footer />
             </>
           }
         />
@@ -140,6 +150,47 @@ function AppContent() {
             />
           }
         />
+        <Route
+          path="/search"
+          element={
+            <>
+              <Navigation />
+              <SearchPage />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/category/:category"
+          element={
+            <>
+              <Navigation />
+              <CategoryPage />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/author/:authorName"
+          element={
+            <>
+              <Navigation />
+              <AuthorPage />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/bookmarks"
+          element={
+            <>
+              <Navigation />
+              <BookmarksPage />
+              <Footer />
+            </>
+          }
+        />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
   );
